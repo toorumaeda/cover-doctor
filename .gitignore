@@ -1,0 +1,5 @@
+build/
+*.sqlitedb*
+backup/
+Dependencies/prefix/
+Dependencies/static/
