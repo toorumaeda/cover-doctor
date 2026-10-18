@@ -16,7 +16,7 @@ Questions and reports (what worked and what did not, with your macOS and iOS ver
 
 ## What it does
 
-After a Finder / Apple Music sync, the iPhone's media database can end up pointing many albums at the wrong cover image file, even though the song files themselves carry the correct embedded artwork. Cover Doctor:
+After a Finder / Apple Music sync, the cover image file that the iPhone stores for an album can end up containing **another album's picture**, even though the song files themselves carry the correct embedded artwork. Cover Doctor:
 
 1. **Diagnoses** (read only): reads the iPhone's library information, extracts the embedded cover from one song per album, and compares it with the image the iPhone currently uses.
 2. **Fixes**: overwrites only the wrong cover *image files* inside the iPhone's artwork store with the correct images. It never writes to the database, your songs, or your Mac's library.
@@ -32,7 +32,7 @@ The Music app on the iPhone reaches a cover like this:
 album  →  artwork token  →  image file path  →  image file (Artwork/Originals)
 ```
 
-After a sync, this chain can end up pointing an album at **another album's** image file, while the song files still carry the correct embedded cover.
+After a sync, the image file at the end of this chain can contain **another album's** picture, while the song files still carry the correct embedded cover. In the author's case every album still had its own token and its own file; many of those files held identical copies of the same unrelated cover (167 albums showed only 37 different pictures). Whether the wrong picture is created by the Mac-side sync or by the iPhone is **not known**.
 
 **Diagnose (read only)**
 1. Copy and read the iPhone's library database (`MediaLibrary.sqlitedb`).
@@ -69,6 +69,9 @@ If you try it on another setup, please report what happened (what worked and wha
 
 ## Limits (please read)
 
+- **Undo restores only the image files that this app saved.** It does not restore the Music database or iPhone caches, and an iPhone backup is not a substitute for it (whether a backup restores these internal files is unverified).
+- Matching is done by appearance (see *How it works*). Two almost identical covers may be judged the same, and the thresholds were measured on one library only.
+- **Not verified:** iCloud Music Library turned **on**, and Apple Music subscription songs. The author's tests used local files with iCloud Music Library off.
 - Albums whose song files have **no embedded cover image** cannot be fixed.
 - A later sync can bring the wrong covers back. Run the diagnosis again and fix again.
 - It relies on how iOS stores artwork internally. A future iOS update may break it.
@@ -149,7 +152,7 @@ Mac や PC から iPhone に音楽を同期したあと、iPhone のミュージ
 
 ### できること
 
-Finder や Apple Music での同期のあと、iPhone 内のデータベースが、多くのアルバムを誤ったジャケット画像ファイルに結びつけることがあります。曲ファイルには、正しい画像が埋め込まれているのにです。Cover Doctor は次のことをします。
+Finder や Apple Music での同期のあと、iPhone がアルバムごとに保存しているジャケット画像ファイルの**中身が、別のアルバムの絵になってしまう**ことがあります。曲ファイルには、正しい画像が埋め込まれているのにです。Cover Doctor は次のことをします。
 
 1. **診断**（読み取りのみ）: iPhone のライブラリ情報を読み、アルバムごとに1曲から埋め込みジャケットを取り出し、iPhone が今使っている画像と比べます。
 2. **修復**: iPhone 内のジャケット画像の保管場所にある、誤った画像**ファイルだけ**を、正しい画像で上書きします。データベース、曲ファイル、Mac のライブラリには書き込みません。
@@ -163,7 +166,7 @@ iPhone のミュージックは、ジャケットを次の順にたどって表�
 アルバム  →  画像の番号（トークン）  →  画像ファイルの場所  →  画像ファイル（Artwork/Originals）
 ```
 
-同期のあと、この連なりが、アルバムを**別のアルバムの**画像ファイルに結びつけてしまうことがあります。一方で、曲ファイルの中には、正しいジャケットが埋め込まれたままです。
+同期のあと、この連なりの最後にある画像ファイルの**中身が、別のアルバムの絵**になってしまうことがあります。作者の場合、どのアルバムも、自分のトークンと自分のファイルを持っていて、そのファイルの多くが、同じ誤った絵の複製でした（167アルバムが、37種類の絵しか持っていませんでした）。誤った絵を作っているのが、Mac 側の同期なのか、iPhone なのかは、**分かっていません**。一方で、曲ファイルの中には、正しいジャケットが埋め込まれたままです。
 
 **診断（読み取りのみ）**
 1. iPhone のライブラリ情報（`MediaLibrary.sqlitedb`）をコピーして読みます。
@@ -200,7 +203,10 @@ Cover Doctor は、**作者自身の環境でしか、動作を確認してい�
 
 ### 制限（必ずお読みください）
 
-- 曲ファイルに**ジャケット画像が埋め込まれていない**アルバムは、直せません。
+- **「元に戻す」が戻すのは、このアプリが保存した画像ファイルだけです。** ミュージックのデータベースや iPhone のキャッシュは戻しません。iPhone のバックアップは、代わりになりません（バックアップから、これらの内部ファイルが戻るかは、未確認です）。
+- 見た目で判定しています（「仕組み」を参照）。ほとんど同じ2枚のジャケットは、同じと判定されることがあり、しきい値は、1つのライブラリだけで測っています。
+- **未確認:** iCloud ミュージックライブラリを**オン**にした場合と、Apple Music の契約曲。作者の確認は、iCloud ミュージックライブラリをオフにした、ローカルのファイルだけです。
+- 曲に**ジャケット画像が埋め込まれていない**アルバムは、直せません。
 - あとで同期すると、また誤りが出ることがあります。その場合は、もう一度診断して直してください。
 - iOS の内部の保存方法に依存しています。将来の iOS の更新で、動かなくなる可能性があります。
 - **Apple Silicon の macOS 14 以上**向けに作っていますが、動作確認は macOS 27 でしかしていません（「動作確認の範囲」を参照）。Intel Mac と Windows には、まだ対応していません。
