@@ -10,7 +10,7 @@ Fixes the problem where the Music app on your iPhone shows **another album's cov
 
 ## Download
 
-Get the latest `CoverDoctor-<version>.zip` from the [Releases page](https://github.com/toorumaeda/cover-doctor/releases), unzip it, and follow *Opening the app for the first time* below. A SHA-256 checksum is published next to the zip so you can verify the download (`shasum -a 256 CoverDoctor-<version>.zip`).
+Get the latest `CoverDoctor-<version>-macOS-arm64.zip` (for Apple Silicon Macs) from the [Releases page](https://github.com/toorumaeda/cover-doctor/releases), unzip it, and follow *Opening the app for the first time* below. A SHA-256 checksum is published next to the zip so you can verify the download (`shasum -a 256 CoverDoctor-<version>-macOS-arm64.zip`).
 
 Questions and reports (what worked and what did not, with your macOS and iOS versions): [Issues](https://github.com/toorumaeda/cover-doctor/issues).
 
@@ -143,7 +143,7 @@ Mac や PC から iPhone に音楽を同期したあと、iPhone のミュージ
 
 ### ダウンロード
 
-[Releases ページ](https://github.com/toorumaeda/cover-doctor/releases)から、`CoverDoctor-<バージョン>.zip` をダウンロードして、解凍し、下の「初めて開くとき」の手順に従ってください。zip の横に、SHA-256 のチェックサムも置いてあります（`shasum -a 256 CoverDoctor-<バージョン>.zip` で、確認できます）。
+[Releases ページ](https://github.com/toorumaeda/cover-doctor/releases)から、`CoverDoctor-<バージョン>-macOS-arm64.zip`（Apple Silicon の Mac 用）をダウンロードして、解凍し、下の「初めて開くとき」の手順に従ってください。zip の横に、SHA-256 のチェックサムも置いてあります（`shasum -a 256 CoverDoctor-<バージョン>-macOS-arm64.zip` で、確認できます）。
 
 質問や報告（動いたこと、動かなかったこと。macOS と iOS のバージョンも）は、[Issues](https://github.com/toorumaeda/cover-doctor/issues) へお願いします。
 
