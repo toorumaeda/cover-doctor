@@ -1,10 +1,16 @@
-# GitHub の Mac（macOS の仮想マシン）で、配布用の zip を作る。リリースは作らない（zip は Actions の成果物として置くだけ）。
+# GitHub の Mac（macOS の仮想マシン）で、配布用の zip を作る。ふだんは Actions の成果物として置くだけ。
+# v で始まるタグ（例: v0.1.1）を push したときだけ、zip と SHA-256 を、そのタグの「下書き」リリースに載せる（公開は手で行う）。
 # 手順は、手元の Mac と同じ: Tools/build_libs.sh → Tools/make_icon.sh → build-app.sh → Tools/make_release.sh
 name: Build macOS app
 
 on:
   workflow_dispatch:
   pull_request:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write   # 下書きリリースの作成（タグの push のときだけ使う）
 
 jobs:
   build:
@@ -71,3 +77,13 @@ jobs:
             build/release/*
             Assets/AppIcon.icns
             docs/images/icon.png
+
+      - name: Draft release (tag push only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          VERSION="$(plutil -extract CFBundleShortVersionString raw build/CoverDoctor.app/Contents/Info.plist)"
+          [ "$TAG" = "v$VERSION" ] || { echo "タグ $TAG と、アプリのバージョン $VERSION が合いません"; exit 1; }
+          gh release create "$TAG" build/release/* --draft --prerelease --verify-tag --title "Cover Doctor $VERSION (pre-release)" --notes "(draft)"
