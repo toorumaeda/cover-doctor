@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.75" r="0.8">
+      <stop offset="0" stop-color="#7a0a0a"/>
+      <stop offset="0.5" stop-color="#2a0505"/>
+      <stop offset="1" stop-color="#050505"/>
+    </radialGradient>
+    <linearGradient id="fire" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#fff3a0"/>
+      <stop offset="0.3" stop-color="#ffb000"/>
+      <stop offset="0.7" stop-color="#ff3b00"/>
+      <stop offset="1" stop-color="#a00000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.35" stop-color="#9aa3ad"/>
+      <stop offset="0.55" stop-color="#eef2f6"/>
+      <stop offset="1" stop-color="#4a5058"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a3a3a"/>
+      <stop offset="0.5" stop-color="#0c0c0c"/>
+      <stop offset="1" stop-color="#000"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <!-- flames -->
+  <path d="M0,600 L0,470 Q13,418 43,300 Q73,418 86,470 Q99,418 129,226 Q159,418 171,470 Q184,418 214,235 Q244,418 257,470 Q270,418 300,287 Q330,418 343,470 Q356,418 386,262 Q416,418 429,470 Q441,418 471,267 Q501,418 514,470 Q527,418 557,246 Q587,418 600,470 L600,600 Z" fill="url(#fire)"/>
+  <path d="M0,600 L0,530 Q10,496 33,363 Q57,496 67,530 Q77,496 100,364 Q123,496 133,530 Q143,496 167,424 Q190,496 200,530 Q210,496 233,422 Q257,496 267,530 Q277,496 300,371 Q323,496 333,530 Q343,496 367,378 Q390,496 400,530 Q410,496 433,382 Q457,496 467,530 Q477,496 500,407 Q523,496 533,530 Q543,496 567,387 Q590,496 600,530 L600,600 Z" fill="#ff7a00" opacity="0.9"/>
+  <path d="M0,600 L0,575 Q8,557 27,512 Q46,557 55,575 Q63,557 82,501 Q101,557 109,575 Q117,557 136,508 Q155,557 164,575 Q172,557 191,499 Q210,557 218,575 Q226,557 245,498 Q265,557 273,575 Q281,557 300,519 Q319,557 327,575 Q335,557 355,521 Q374,557 382,575 Q390,557 409,491 Q428,557 436,575 Q445,557 464,512 Q483,557 491,575 Q499,557 518,513 Q537,557 545,575 Q554,557 573,485 Q592,557 600,575 L600,600 Z" fill="#ffe060" opacity="0.9"/>
+  <!-- lightning -->
+  
+  <path d="M140,20 L80,160 L130,160 L70,320 L200,120 L145,120 L195,20 Z" fill="url(#chrome)" stroke="#fff" stroke-width="3"/>
+  <!-- flying V guitar -->
+  <g transform="translate(300 320) rotate(-22) translate(-300 -320)">
+    <path d="M300,300 L455,575 L405,592 L300,480 L195,592 L145,575 Z" fill="url(#body)" stroke="url(#chrome)" stroke-width="8" stroke-linejoin="round"/>
+    <rect x="287" y="60" width="26" height="250" fill="#2a1a10"/>
+    <g stroke="#c9c9c9" stroke-width="2">
+      <line x1="287" y1="100" x2="313" y2="100"/><line x1="287" y1="140" x2="313" y2="140"/><line x1="287" y1="178" x2="313" y2="178"/><line x1="287" y1="212" x2="313" y2="212"/><line x1="287" y1="244" x2="313" y2="244"/><line x1="287" y1="274" x2="313" y2="274"/>
+    </g>
+    <path d="M286,62 L276,10 L300,-10 L330,8 L314,62 Z" fill="url(#body)" stroke="url(#chrome)" stroke-width="5"/>
+    <rect x="268" y="345" width="64" height="24" rx="4" fill="url(#chrome)"/>
+    <rect x="268" y="395" width="64" height="24" rx="4" fill="url(#chrome)"/>
+    <rect x="278" y="440" width="44" height="10" rx="3" fill="url(#chrome)"/>
+    <g stroke="#f4f4f4" stroke-width="1.5">
+      <line x1="292" y1="20" x2="292" y2="445"/><line x1="297" y1="20" x2="297" y2="445"/><line x1="303" y1="20" x2="303" y2="445"/><line x1="308" y1="20" x2="308" y2="445"/>
+    </g>
+    <circle cx="390" cy="520" r="9" fill="url(#chrome)"/><circle cx="210" cy="520" r="9" fill="url(#chrome)"/>
+  </g>
+</svg>

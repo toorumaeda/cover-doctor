@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+    <Product>Cover Doctor</Product>
+    <Copyright>Copyright (c) 2026 Toru Maeda</Copyright>
+  </PropertyGroup>
+  <!-- 書き込みの試験用コマンド（testswap）は、テスト版（-p:TestSwap=true）にだけ入れる -->
+  <PropertyGroup Condition="'$(TestSwap)' == 'true'">
+    <DefineConstants>$(DefineConstants);TESTSWAP</DefineConstants>
+  </PropertyGroup>
+</Project>
