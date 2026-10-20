@@ -12,6 +12,8 @@ Fixes the problem where the Music app on your iPhone shows **another album's cov
 
 Get the latest `CoverDoctor-<version>-macOS-arm64.zip` (for Apple Silicon Macs) from the [Releases page](https://github.com/toorumaeda/cover-doctor/releases), unzip it, and follow *Opening the app for the first time* below. A SHA-256 checksum is published next to the zip so you can verify the download (`shasum -a 256 CoverDoctor-<version>-macOS-arm64.zip`).
 
+**Windows:** get `CoverDoctor-<version>-Windows-x64.zip` from the same page (Windows 10/11 64-bit with iTunes or the Apple Devices app; verified on Windows 11 only). See [windows/README.md](windows/README.md) (Japanese) and the `README.txt` inside the zip.
+
 Questions and reports (what worked and what did not, with your macOS and iOS versions): [Issues](https://github.com/toorumaeda/cover-doctor/issues).
 
 ## What it does
@@ -147,6 +149,8 @@ Mac や PC から iPhone に音楽を同期したあと、iPhone のミュージ
 ### ダウンロード
 
 [Releases ページ](https://github.com/toorumaeda/cover-doctor/releases)から、`CoverDoctor-<バージョン>-macOS-arm64.zip`（Apple Silicon の Mac 用）をダウンロードして、解凍し、下の「初めて開くとき」の手順に従ってください。zip の横に、SHA-256 のチェックサムも置いてあります（`shasum -a 256 CoverDoctor-<バージョン>-macOS-arm64.zip` で、確認できます）。
+
+**Windows 版:** 同じページの `CoverDoctor-<バージョン>-Windows-x64.zip` です（Windows 10/11 の 64 ビット。iTunes か「Apple デバイス」アプリが必要。確認は Windows 11 のみ）。詳しくは [windows/README.md](windows/README.md) と、zip の中の `README.txt` を見てください。
 
 質問や報告（動いたこと、動かなかったこと。macOS と iOS のバージョンも）は、[Issues](https://github.com/toorumaeda/cover-doctor/issues) へお願いします。
 

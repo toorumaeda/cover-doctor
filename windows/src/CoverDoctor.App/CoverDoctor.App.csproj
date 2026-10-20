@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>CoverDoctor</AssemblyName>
+    <RootNamespace>CoverDoctor.App</RootNamespace>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- 配布: .NET を別に入れなくても動く1つの exe（圧縮）。afcfs.exe と LGPL の DLL は、入れ替えられるように別ファイルのまま横に置く -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <SatelliteResourceLanguages>en;ja</SatelliteResourceLanguages>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoverDoctor.Core\CoverDoctor.Core.csproj" />
+  </ItemGroup>
+  <!-- 画面は XAML を使わずコードで組み立てているので、WPF の部品だけを参照する
+       （UseWPF の XAML 処理を使わないことで、Linux の開発機でも Windows 用にビルドできる） -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WPF" />
+    <EmbeddedResource Include="AppIcon.png" LogicalName="AppIcon.png" />
+  </ItemGroup>
+</Project>
