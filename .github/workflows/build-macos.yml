@@ -1,7 +1,8 @@
 # GitHub の Mac（macOS の仮想マシン）で、配布用の zip を作る。ふだんは Actions の成果物として置くだけ。
 # v で始まるタグ（例: v0.1.1）を push したときだけ、zip と SHA-256 を、そのタグの「下書き」リリースに載せる（公開は手で行う）。
-# Actions の画面から「Run workflow」で release にチェックを入れて動かすと、アプリのバージョンのタグ（v<版>）を付けて、
-# docs/releases/v<版>.md を本文にしたプレリリースを公開する（同じタグがすでにあれば、何もせず失敗する）。
+# Actions の画面から「Run workflow」で release にチェックを入れて動かすと、docs/releases/v<版>.md を本文にした
+# プレリリースの「下書き」を、Mac 版の zip 付きで作る（同じタグがすでにあれば失敗する）。
+# Windows 版の zip を下書きに追加してから、手で公開する（公開したときに v<版> のタグが付く）。
 # 手順は、手元の Mac と同じ: Tools/build_libs.sh → Tools/make_icon.sh → build-app.sh → Tools/make_release.sh
 name: Build macOS app
 
@@ -9,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       release:
-        description: 'アプリのバージョンで、プレリリースを公開する'
+        description: 'アプリのバージョンで、プレリリースの下書きを作る'
         type: boolean
         default: false
   pull_request:
@@ -95,7 +96,7 @@ jobs:
           [ "$TAG" = "v$VERSION" ] || { echo "タグ $TAG と、アプリのバージョン $VERSION が合いません"; exit 1; }
           gh release create "$TAG" build/release/* --draft --prerelease --verify-tag --title "Cover Doctor $VERSION (pre-release)" --notes "(draft)"
 
-      - name: Publish pre-release (Run workflow with release)
+      - name: Draft pre-release (Run workflow with release)
         if: github.event_name == 'workflow_dispatch' && inputs.release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -103,4 +104,4 @@ jobs:
           VERSION="$(plutil -extract CFBundleShortVersionString raw build/CoverDoctor.app/Contents/Info.plist)"
           NOTES="docs/releases/v$VERSION.md"
           [ -f "$NOTES" ] || { echo "$NOTES がありません"; exit 1; }
-          gh release create "v$VERSION" build/release/* --target "$GITHUB_SHA" --prerelease --title "Cover Doctor $VERSION (pre-release)" --notes-file "$NOTES"
+          gh release create "v$VERSION" build/release/* --target "$GITHUB_SHA" --draft --prerelease --title "Cover Doctor $VERSION (pre-release)" --notes-file "$NOTES"
