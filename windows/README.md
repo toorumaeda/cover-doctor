@@ -1,6 +1,6 @@
 # Cover Doctor — Windows 版
 
-Mac 版（このリポジトリの本体、0.1.0）と同じ動作・同じ安全装置の Windows 版です。配布用の zip は、[リリース](https://github.com/toorumaeda/cover-doctor/releases) の `CoverDoctor-0.1.0-Windows-x64.zip` です。
+Mac 版（このリポジトリの本体）と同じ動作・同じ安全装置の Windows 版です。版番号は Mac 版とそろえています。配布用の zip は、[リリース](https://github.com/toorumaeda/cover-doctor/releases) の `CoverDoctor-<版>-Windows-x64.zip` です（0.1.1 から）。
 
 ## 確認した環境（作者の 1 組だけ）
 
@@ -29,7 +29,7 @@ Mac 版（このリポジトリの本体、0.1.0）と同じ動作・同じ安�
 - SQLite: Microsoft.Data.Sqlite、読み取り専用。SQL は Mac 版と同じ。
 - 作業フォルダ: `%APPDATA%\CoverRepair\<UDID>\`（Mac 版の `~/Library/Application Support/CoverRepair/<UDID>/` と同じ構成: `originals/`, `current/`, `fresh/`, `plan.json`, `applied.json`）。
 - `CoverDoctor.exe` に引数を付けると、コマンド版として動く（`diagnose` / `fix --yes` / `restore --yes` / `report` / `version`。出力を見るには `| Out-String` を付ける）。
-- 書き込みの試験用コマンド `testswap`（正しいジャケットをわざと入れ替える）は、テスト版（`VERSION=0.1.0-testN bash tools/make_release.sh`）にだけ入る。正式版には入らない。
+- 書き込みの試験用コマンド `testswap`（正しいジャケットをわざと入れ替える）は、テスト版（`VERSION=<版>-testN bash tools/make_release.sh`）にだけ入る。正式版には入らない。
 
 ## Mac 版と変えたところ（2026-10-20 に作者が承認）
 1. **修復の直前に、iPhone 上の画像が診断のときと同じかを確かめる。** 違っていたら（診断のあとに同期した等）、書き込まずに「もう一度診断してください」と知らせる。iPhone をつなぎっぱなしにできない前提で、診断と修復の間が空くことを考えた。

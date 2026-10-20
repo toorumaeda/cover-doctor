@@ -52,7 +52,7 @@ public sealed class MainWindow : Window
     public MainWindow()
     {
         model = new AppModel(a => Dispatcher.BeginInvoke(a));
-        Title = L.T("Cover Doctor") + " " + Cli.AppVersion;
+        Title = L.T("Cover Doctor for Windows") + " " + Cli.AppVersion;
         Width = 760; Height = 780; MinWidth = 620; MinHeight = 660;
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         FontFamily = new FontFamily(L.Japanese ? "Yu Gothic UI, Meiryo UI, Segoe UI" : "Segoe UI");
@@ -61,7 +61,7 @@ public sealed class MainWindow : Window
 
         var root = new DockPanel { Margin = new Thickness(20), LastChildFill = true };
         var header = new StackPanel();
-        header.Children.Add(new TextBlock { Text = L.T("Cover Doctor"), FontSize = 28, FontWeight = FontWeights.Bold });
+        header.Children.Add(new TextBlock { Text = L.T("Cover Doctor for Windows"), FontSize = 28, FontWeight = FontWeights.Bold });
         header.Children.Add(new TextBlock { Text = L.T("Fixes the problem where the Music app on your iPhone shows another album's cover."), Foreground = Secondary, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 4, 0, 12) });
         var deviceRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 12) };
         deviceRow.Children.Add(deviceDot); deviceRow.Children.Add(deviceText);

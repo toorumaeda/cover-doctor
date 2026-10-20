@@ -10,9 +10,20 @@ Fixes the problem where the Music app on your iPhone shows **another album's cov
 
 ## Download
 
-Get the latest `CoverDoctor-<version>-macOS-arm64.zip` (for Apple Silicon Macs) from the [Releases page](https://github.com/toorumaeda/cover-doctor/releases), unzip it, and follow *Opening the app for the first time* below. A SHA-256 checksum is published next to the zip so you can verify the download (`shasum -a 256 CoverDoctor-<version>-macOS-arm64.zip`).
+Both versions share the same version number and are on the same [Releases page](https://github.com/toorumaeda/cover-doctor/releases). Pick the file for your computer; the OS is in the file name.
 
-**Windows:** get `CoverDoctor-<version>-Windows-x64.zip` from the same page (Windows 10/11 64-bit with iTunes or the Apple Devices app; verified on Windows 11 only). See [windows/README.md](windows/README.md) (Japanese) and the `README.txt` inside the zip.
+### Mac
+
+- File: `CoverDoctor-<version>-macOS-arm64.zip` (Apple Silicon Macs, macOS 14 or later).
+- Unzip it and follow *Opening the app for the first time* below (macOS blocks the first launch).
+- Check the download with the `.sha256` file next to it: `shasum -a 256 CoverDoctor-<version>-macOS-arm64.zip`.
+
+### Windows
+
+- File: `CoverDoctor-<version>-Windows-x64.zip` (Windows 10/11, 64-bit). iTunes or the Apple Devices app must be installed.
+- Unzip the whole folder and run `CoverDoctor.exe`. Windows SmartScreen warns on first launch (More info → Run anyway).
+- Check the download with the `.sha256` file next to it: `Get-FileHash CoverDoctor-<version>-Windows-x64.zip` in PowerShell.
+- Verified on Windows 11 only. See [windows/README.md](windows/README.md) (Japanese) and the `README.txt` inside the zip.
 
 Questions and reports (what worked and what did not, with your macOS and iOS versions): [Issues](https://github.com/toorumaeda/cover-doctor/issues).
 
@@ -77,7 +88,7 @@ If you try it on another setup, please report what happened (what worked and wha
 - Albums whose song files have **no embedded cover image** cannot be fixed.
 - A later sync can bring the wrong covers back. Run the diagnosis again and fix again.
 - It relies on how iOS stores artwork internally. A future iOS update may break it.
-- Built for **macOS 14 or later on Apple Silicon**, but only tested on macOS 27 (see *What has been tested*). Intel Macs and Windows are not supported yet.
+- Built for **macOS 14 or later on Apple Silicon**, but only tested on macOS 27 (see *What has been tested*). Intel Macs are not supported yet. For Windows, see *Download* above.
 - Not affiliated with Apple. "iPhone" and "Music" are trademarks of Apple Inc.
 
 ## How to use
@@ -148,9 +159,20 @@ Mac や PC から iPhone に音楽を同期したあと、iPhone のミュージ
 
 ### ダウンロード
 
-[Releases ページ](https://github.com/toorumaeda/cover-doctor/releases)から、`CoverDoctor-<バージョン>-macOS-arm64.zip`（Apple Silicon の Mac 用）をダウンロードして、解凍し、下の「初めて開くとき」の手順に従ってください。zip の横に、SHA-256 のチェックサムも置いてあります（`shasum -a 256 CoverDoctor-<バージョン>-macOS-arm64.zip` で、確認できます）。
+Mac 版と Windows 版は、同じ版番号で、同じ [Releases ページ](https://github.com/toorumaeda/cover-doctor/releases)に並んでいます。お使いのパソコンに合うファイルを選んでください。ファイル名に OS が入っています。
 
-**Windows 版:** 同じページの `CoverDoctor-<バージョン>-Windows-x64.zip` です（Windows 10/11 の 64 ビット。iTunes か「Apple デバイス」アプリが必要。確認は Windows 11 のみ）。詳しくは [windows/README.md](windows/README.md) と、zip の中の `README.txt` を見てください。
+#### Mac をお使いの方
+
+- ファイル: `CoverDoctor-<バージョン>-macOS-arm64.zip`（Apple Silicon の Mac、macOS 14 以上）
+- 解凍して、下の「初めて開くとき」の手順に従ってください（初回は macOS に止められます）。
+- 横の `.sha256` のファイルで、ダウンロードを確認できます: `shasum -a 256 CoverDoctor-<バージョン>-macOS-arm64.zip`
+
+#### Windows をお使いの方
+
+- ファイル: `CoverDoctor-<バージョン>-Windows-x64.zip`（Windows 10/11 の 64 ビット）。iTunes か「Apple デバイス」アプリが必要です。
+- フォルダごと解凍して、`CoverDoctor.exe` を開きます。初回は Windows SmartScreen の警告が出るので、「詳細情報」→「実行」を選んでください。
+- 横の `.sha256` のファイルで、ダウンロードを確認できます: PowerShell で `Get-FileHash CoverDoctor-<バージョン>-Windows-x64.zip`
+- 動作確認は Windows 11 のみです。詳しくは [windows/README.md](windows/README.md) と、zip の中の `README.txt` を見てください。
 
 質問や報告（動いたこと、動かなかったこと。macOS と iOS のバージョンも）は、[Issues](https://github.com/toorumaeda/cover-doctor/issues) へお願いします。
 
@@ -213,7 +235,7 @@ Cover Doctor は、**作者自身の環境でしか、動作を確認してい�
 - 曲に**ジャケット画像が埋め込まれていない**アルバムは、直せません。
 - あとで同期すると、また誤りが出ることがあります。その場合は、もう一度診断して直してください。
 - iOS の内部の保存方法に依存しています。将来の iOS の更新で、動かなくなる可能性があります。
-- **Apple Silicon の macOS 14 以上**向けに作っていますが、動作確認は macOS 27 でしかしていません（「動作確認の範囲」を参照）。Intel Mac と Windows には、まだ対応していません。
+- **Apple Silicon の macOS 14 以上**向けに作っていますが、動作確認は macOS 27 でしかしていません（「動作確認の範囲」を参照）。Intel Mac には、まだ対応していません。Windows 版は、上の「ダウンロード」を見てください。
 - Apple とは関係ありません。「iPhone」「ミュージック（Music）」は Apple Inc. の商標です。
 
 ### 使い方

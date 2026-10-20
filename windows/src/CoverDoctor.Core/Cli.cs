@@ -119,7 +119,7 @@ public static class Cli
                     if (work == null || plan == null) { Say("diagnose first"); return 1; }
                     var lines = new List<string>
                     {
-                        $"Cover Doctor {AppVersion} report",
+                        $"Cover Doctor for Windows {AppVersion} report",
                         $"OS: {Environment.OSVersion.VersionString}",
                         $"iOS: {plan.IosVersion}",
                         $"created: {plan.Created}",
@@ -160,10 +160,10 @@ public static class Cli
                     break;
                 }
                 case "version":
-                    Say($"Cover Doctor {AppVersion}");
+                    Say($"Cover Doctor for Windows {AppVersion}");
                     break;
                 default:
-                    Say($"Cover Doctor {AppVersion}");
+                    Say($"Cover Doctor for Windows {AppVersion}");
 #if TESTSWAP
                     Say("usage: coverdoctor diagnose [--reuse] | fix --yes | restore --yes | testswap [--count N] [--playlists M] --yes | testswap-undo --yes | report | version   (--work DIR)");
 #else
