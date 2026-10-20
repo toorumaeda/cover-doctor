@@ -4,7 +4,7 @@
 # 公開（GitHub のリリースへの登録）は、このスクリプトでは行わない。
 set -euo pipefail
 cd "$(dirname "$0")/.."
-VERSION="${VERSION:-0.1.0}"
+VERSION="${VERSION:-0.1.1}"
 P="$PWD/Dependencies/prefix-win64"
 [ -f "$P/bin/libimobiledevice-1.0.dll" ] || { echo "Dependencies/prefix-win64 がありません。先に: bash tools/build_libs_mingw.sh <ソースのフォルダ>"; exit 1; }
 NAME="CoverDoctor-$VERSION-Windows-x64"

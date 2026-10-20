@@ -39,7 +39,7 @@ public static class L
         ["Undo the changes?"] = "元に戻しますか？",
         ["Undo"] = "元に戻す",
         ["This puts the covers replaced by this app back to how they were before."] = "このアプリで置き換えたジャケットを、置き換える前の状態に戻します。",
-        ["Cover Doctor"] = "Cover Doctor",
+        ["Cover Doctor for Windows"] = "Cover Doctor for Windows",
         ["Fixes the problem where the Music app on your iPhone shows another album's cover."] = "iPhone のミュージックで、別のアルバムのジャケットが表示される問題を直します。",
         ["Connected to {0} (iOS {1})"] = "{0}（iOS {1}）に接続中",
         ["Connect your iPhone with a USB cable and unlock it"] = "iPhone を USB でつないで、ロックを解除してください",

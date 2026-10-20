@@ -17,7 +17,7 @@ bash tests/run_e2e.sh
 SCALE=150 bash tests/run_e2e.sh
 
 # 3. the release zip and its SHA-256
-bash tools/make_release.sh                                    # -> build/release/CoverDoctor-0.1.0-Windows-x64.zip
+bash tools/make_release.sh                                    # -> build/release/CoverDoctor-0.1.1-Windows-x64.zip
 ```
 
 Notes

@@ -1,4 +1,4 @@
-Cover Doctor for Windows 0.1.0 (early version, unofficial)
+Cover Doctor for Windows 0.1.1 (early version, unofficial)
 ==========================================================
 
 [English]
