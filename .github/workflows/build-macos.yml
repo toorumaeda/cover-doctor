@@ -1,0 +1,89 @@
+# GitHub の Mac（macOS の仮想マシン）で、配布用の zip を作る。ふだんは Actions の成果物として置くだけ。
+# v で始まるタグ（例: v0.1.1）を push したときだけ、zip と SHA-256 を、そのタグの「下書き」リリースに載せる（公開は手で行う）。
+# 手順は、手元の Mac と同じ: Tools/build_libs.sh → Tools/make_icon.sh → build-app.sh → Tools/make_release.sh
+name: Build macOS app
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write   # 下書きリリースの作成（タグの push のときだけ使う）
+
+jobs:
+  build:
+    runs-on: macos-latest   # Apple Silicon（arm64）
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show tools
+        run: sw_vers; uname -m; xcodebuild -version; swiftc --version
+
+      - name: Cache libraries (Dependencies/prefix)
+        id: libs
+        uses: actions/cache@v4
+        with:
+          path: Dependencies/prefix
+          key: libs-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Tools/build_libs.sh') }}
+
+      - name: Download library sources (official release tarballs)
+        if: steps.libs.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p "$RUNNER_TEMP/src" && cd "$RUNNER_TEMP/src"
+          curl -fsSLO https://github.com/libimobiledevice/libplist/releases/download/2.7.0/libplist-2.7.0.tar.bz2
+          curl -fsSLO https://github.com/libimobiledevice/libimobiledevice-glue/releases/download/1.3.2/libimobiledevice-glue-1.3.2.tar.bz2
+          curl -fsSLO https://github.com/libimobiledevice/libusbmuxd/releases/download/2.1.1/libusbmuxd-2.1.1.tar.bz2
+          curl -fsSLO https://github.com/libimobiledevice/libimobiledevice/releases/download/1.4.0/libimobiledevice-1.4.0.tar.bz2
+          curl -fsSLO https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz
+          shasum -a 256 -c <<'SUMS'
+          7ac42301e896b1ebe3c654634780c82baa7cb70df8554e683ff89f7c2643eb8b  libplist-2.7.0.tar.bz2
+          6489a3411b874ecd81c87815d863603f518b264a976319725e0ed59935546774  libimobiledevice-glue-1.3.2.tar.bz2
+          5546f1aba1c3d1812c2b47d976312d00547d1044b84b6a461323c621f396efce  libusbmuxd-2.1.1.tar.bz2
+          23cc0077e221c7d991bd0eb02150a0d49199bcca1ddf059edccee9ffd914939d  libimobiledevice-1.4.0.tar.bz2
+          344d0a79f1a9b08029b0744e2cc401a43f9c90acd1044d09a530b4885a8e9fc0  openssl-3.5.0.tar.gz
+          SUMS
+
+      - name: Build libraries
+        if: steps.libs.outputs.cache-hit != 'true'
+        run: |
+          # libimobiledevice の configure が libtatsu を確認する（libtatsu を使うのは同梱しないコマンドだけ。手元の Mac も Homebrew の libtatsu で通している）
+          brew list libtatsu >/dev/null 2>&1 || brew install libtatsu
+          command -v pkg-config || brew install pkgconf
+          bash Tools/build_libs.sh "$RUNNER_TEMP/src"
+
+      - name: Make icon
+        run: bash Tools/make_icon.sh
+
+      - name: Build app
+        run: bash build-app.sh
+
+      - name: Make zip
+        run: bash Tools/make_release.sh
+
+      - name: Check the app
+        run: |
+          plutil -extract CFBundleShortVersionString raw build/CoverDoctor.app/Contents/Info.plist
+          codesign --verify --deep --strict build/CoverDoctor.app
+          otool -L build/CoverDoctor.app/Contents/MacOS/afcfs build/CoverDoctor.app/Contents/Frameworks/*.dylib
+          # 同梱ライブラリが、このマシンだけにあるもの（Homebrew など）を参照していないこと
+          ! otool -L build/CoverDoctor.app/Contents/MacOS/afcfs build/CoverDoctor.app/Contents/Frameworks/*.dylib | grep -E '^[[:space:]]+(/opt/homebrew|/usr/local|/Users/)'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CoverDoctor-macOS-arm64
+          path: |
+            build/release/*
+            Assets/AppIcon.icns
+            docs/images/icon.png
+
+      - name: Draft release (tag push only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          VERSION="$(plutil -extract CFBundleShortVersionString raw build/CoverDoctor.app/Contents/Info.plist)"
+          [ "$TAG" = "v$VERSION" ] || { echo "タグ $TAG と、アプリのバージョン $VERSION が合いません"; exit 1; }
+          gh release create "$TAG" build/release/* --draft --prerelease --verify-tag --title "Cover Doctor $VERSION (pre-release)" --notes "(draft)"
