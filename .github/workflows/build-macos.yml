@@ -42,6 +42,8 @@ jobs:
       - name: Build libraries
         if: steps.libs.outputs.cache-hit != 'true'
         run: |
+          # libimobiledevice の configure が libtatsu を確認する（libtatsu を使うのは同梱しないコマンドだけ。手元の Mac も Homebrew の libtatsu で通している）
+          brew list libtatsu >/dev/null 2>&1 || brew install libtatsu
           command -v pkg-config || brew install pkgconf
           bash Tools/build_libs.sh "$RUNNER_TEMP/src"
 
@@ -58,7 +60,9 @@ jobs:
         run: |
           plutil -extract CFBundleShortVersionString raw build/CoverDoctor.app/Contents/Info.plist
           codesign --verify --deep --strict build/CoverDoctor.app
-          otool -L build/CoverDoctor.app/Contents/MacOS/afcfs
+          otool -L build/CoverDoctor.app/Contents/MacOS/afcfs build/CoverDoctor.app/Contents/Frameworks/*.dylib
+          # 同梱ライブラリが、このマシンだけにあるもの（Homebrew など）を参照していないこと
+          ! otool -L build/CoverDoctor.app/Contents/MacOS/afcfs build/CoverDoctor.app/Contents/Frameworks/*.dylib | grep -E '/opt/homebrew|/usr/local|/Users/'
 
       - uses: actions/upload-artifact@v4
         with:
