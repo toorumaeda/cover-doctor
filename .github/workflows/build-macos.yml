@@ -62,7 +62,7 @@ jobs:
           codesign --verify --deep --strict build/CoverDoctor.app
           otool -L build/CoverDoctor.app/Contents/MacOS/afcfs build/CoverDoctor.app/Contents/Frameworks/*.dylib
           # 同梱ライブラリが、このマシンだけにあるもの（Homebrew など）を参照していないこと
-          ! otool -L build/CoverDoctor.app/Contents/MacOS/afcfs build/CoverDoctor.app/Contents/Frameworks/*.dylib | grep -E '/opt/homebrew|/usr/local|/Users/'
+          ! otool -L build/CoverDoctor.app/Contents/MacOS/afcfs build/CoverDoctor.app/Contents/Frameworks/*.dylib | grep -E '^[[:space:]]+(/opt/homebrew|/usr/local|/Users/)'
 
       - uses: actions/upload-artifact@v4
         with:
