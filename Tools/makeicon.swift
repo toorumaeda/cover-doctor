@@ -1,6 +1,6 @@
 import AppKit
-// usage: makeicon design.svg out.png size [nologo]
-// design.svg(1024) → 824pxに縮小 → ロゴ文字を重ねる → 1024の余白付きキャンバスに影つきで配置
+// usage: makeicon design.png out.png size [nologo]
+// 原画(1024) → 824pxに縮小 → ロゴ文字を重ねる → 1024の余白付きキャンバスに影つきで配置
 let a = CommandLine.arguments
 guard a.count >= 4, let art = NSImage(contentsOf: URL(fileURLWithPath: a[1])) else { print("load failed"); exit(1) }
 let out = Int(a[3])!, withLogo = !(a.count > 4 && a[4] == "nologo")
